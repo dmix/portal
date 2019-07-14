@@ -38,42 +38,42 @@ Mac OS:
 
 ZSH and Bash, add to `.bashrc` or `.zshrc`, you can use any shortcut name, I use `p`:
 
-  function pp() {
-      cd `portal $1`
-  }
+    function pp() {
+        cd `portal $1`
+    }
 
 Elvish:
 
-  fn p [dir]{
-    cd (portal $dir)
-  }
+    fn p [dir]{
+      cd (portal $dir)
+    }
 
 ### Usage
 
 Jump to a directory (keyword matches)
 
-   $ p styles
-   > cd ~/dev/_ruby/callpixels/vendor/assets/stylesheets
+    p styles
+    > cd ~/dev/_ruby/callpixels/vendor/assets/stylesheets
 
-   $ p blog
-   > cd ~/dev/_rust/blog
+    p blog
+    > cd ~/dev/_rust/blog
 
-   $ p bin
-   > cd /usr/local/bin
+    p bin
+    > cd /usr/local/bin
 
 Tag a directory (tags tag predecdence over keyword matches)
 
-   cd ~/long/directory/path/
-   p tag work
-   > Portal tagged directory with `work`: ~/long/directory/path/
-   cd ~
-   p work
-   > cd ~/long/directory/path/
+    cd ~/long/directory/path/
+    p tag work
+    > Portal tagged directory with `work`: ~/long/directory/path/
+    cd ~
+    p work
+    > cd ~/long/directory/path/
 
 Manually list and select directory
 
-  p list
-  > .. lists directories, use j/k or arrow keys to navigate
+   p list
+   > .. lists directories, use j/k or arrow keys to navigate
 
 ## About
 
@@ -86,7 +86,11 @@ Heavily inspired by `z` https://github.com/rupa/z and the rust rewrite of ls `ex
 I recently switch my terminal from ZSH to Elvish and since I used `z` daily I
 noticed there was no simply binary version that could be used by any terminal.
 So I wanted to build one that is decoupled from the shell but is easily
-integrated with a few lines in a plugin form.
+integrated with a few lines in a plugin form but also:
+
+- Faster
+- Full-text search and listing
+- Support for tags
 
 ### Primary Author
 
