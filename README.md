@@ -72,8 +72,8 @@ Tag a directory (tags tag predecdence over keyword matches)
 
 Manually list and select directory
 
-   p list
-   > .. lists directories, use j/k or arrow keys to navigate
+    p list
+    > .. lists directories, use j/k or arrow keys to navigate
 
 ## About
 
