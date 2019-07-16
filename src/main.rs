@@ -1,3 +1,8 @@
+extern crate tantivy;
+
+mod db;
+// use crate::db;
+// use portal::Config;
 use portal::Config;
 use std::env;
 use std::process;
@@ -9,6 +14,16 @@ fn main() {
         println!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
+
+    match db::init() {
+        Ok((schema, index_path)) => match db::seed(&schema, &index_path) {
+            Ok(index) => {
+                // db::read(&schema, &index);
+            }
+            Err(_) => println!("Error seeding db!"),
+        },
+        Err(_) => println!("Error initializing db!"),
+    };
 
     match portal::run(&config) {
         Ok(contents) => {
