@@ -15,7 +15,8 @@ test:
 	@echo 'Testing'
 
 install:
-	@cargo install
+	@cargo run test
+	@cp -rf ./target/debug/portal /usr/local/bin/portal
 
 # -- Helpers
 
