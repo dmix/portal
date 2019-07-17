@@ -8,7 +8,8 @@ use std::env;
 use std::process;
 
 fn main() {
-    // println!("-- PORTAL --");
+    println!("-- PORTAL --");
+
     let args: Vec<String> = env::args().collect();
     let config = Config::new(&args).unwrap_or_else(|err| {
         println!("Problem parsing arguments: {}", err);
@@ -16,26 +17,26 @@ fn main() {
     });
 
     match db::init() {
-        Ok((schema, index_path)) => match db::seed(&schema, &index_path) {
-            Ok(index) => {
-                // db::read(&schema, &index);
+        Ok(database) => {
+            // let entries = db::seed().unwrap();
+
+            match portal::run(&config) {
+                Ok(contents) => {
+                    let entries = portal::parse(&contents);
+                    db::add_entries(&database, entries);
+                    db::query(&database, "dev");
+
+                    // let results = portal::search(&config.query, &contents);
+                    // let result = results.last();
+                    // for x in results.iter() {
+                    //     println!("> {:?}", x);
+                    // }
+                }
+                Err(e) => println!("Error: {}", e),
             }
-            Err(_) => println!("Error seeding db!"),
-        },
-        Err(_) => println!("Error initializing db!"),
+        }
+        Err(err) => println!("Error initializing db! {:?}", err),
     };
 
-    match portal::run(&config) {
-        Ok(contents) => {
-            let results = portal::search(&config.query, &contents);
-            let result = results.last();
-            println!("{}", result.unwrap().path);
-            // for x in results.iter() {
-            //     println!("> {:?}", x);
-            // }
-        }
-        Err(e) => println!("Error: {}", e),
-    }
-    //
-    // println!("-- DONE --")
+    println!("-- DONE --")
 }

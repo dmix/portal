@@ -9,7 +9,7 @@ HOME=/Users/dmix
 # -- Main
 
 dev: 
-	@cargo run
+	@cargo watch -x 'run -- dev'
 
 test: 
 	@echo 'Testing'
