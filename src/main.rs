@@ -7,8 +7,34 @@ use portal::Config;
 use std::env;
 use std::process;
 
+fn load_z(filename: &String) {
+    match db::init() {
+        Ok(database) => match portal::run(filename) {
+            Ok(contents) => {
+                let entries = portal::parse(&contents);
+                db::add_entries(&database, entries);
+            }
+            Err(e) => println!("Error: {}", e),
+        },
+        Err(err) => println!("Error initializing db! {:?}", err),
+    };
+}
+fn search(query: &String) {
+    println!("SEARCHING {}", &query);
+    match db::init() {
+        Ok(database) => {
+            let results = db::query(&database, &query);
+
+            for dir in results {
+                println!("{}", dir.path);
+            }
+        }
+        Err(err) => println!("Error initializing db! {:?}", err),
+    };
+}
+
 fn main() {
-    println!("-- PORTAL --");
+    // println!("-- PORTAL --");
 
     let args: Vec<String> = env::args().collect();
     let config = Config::new(&args).unwrap_or_else(|err| {
@@ -16,27 +42,12 @@ fn main() {
         process::exit(1);
     });
 
-    match db::init() {
-        Ok(database) => {
-            // let entries = db::seed().unwrap();
+    let load = String::from("load");
+    let callpixels = String::from("callpixels");
 
-            match portal::run(&config) {
-                Ok(contents) => {
-                    let entries = portal::parse(&contents);
-                    db::add_entries(&database, entries);
-                    db::query(&database, "dev");
-
-                    // let results = portal::search(&config.query, &contents);
-                    // let result = results.last();
-                    // for x in results.iter() {
-                    //     println!("> {:?}", x);
-                    // }
-                }
-                Err(e) => println!("Error: {}", e),
-            }
-        }
-        Err(err) => println!("Error initializing db! {:?}", err),
-    };
-
-    println!("-- DONE --")
+    if &config.query == "load" {
+        load_z(&config.filename);
+    } else {
+        search(&config.query);
+    }
 }

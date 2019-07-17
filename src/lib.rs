@@ -39,7 +39,7 @@ impl Dir {
 
 pub struct Config {
     pub query: String,
-    filename: String,
+    pub filename: String,
 }
 
 impl Config {
@@ -55,12 +55,8 @@ impl Config {
     }
 }
 
-pub fn run(config: &Config) -> Result<(String), Box<dyn Error>> {
-    // println!("Searching for {}", config.query);
-    // println!("In file {}", config.filename);
-
-    let contents = fs::read_to_string(&config.filename)?;
-    // println!("Contents {}", contents);
+pub fn run(filename: &String) -> Result<(String), Box<dyn Error>> {
+    let contents = fs::read_to_string(&filename)?;
 
     Ok(contents)
 }
