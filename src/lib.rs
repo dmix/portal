@@ -1,4 +1,3 @@
-// mod db;
 use std::error::Error;
 use std::fs;
 use std::path::Path;
@@ -96,26 +95,6 @@ pub fn parse<'a>(contents: &'a String) -> Vec<Dir> {
     }
 
     // results.sort_by_key(|x| x.rank as u32);
-    results.sort_by_key(|x| x.timestamp);
-    results
-}
-
-pub fn search<'a>(query: &str, contents: &'a String) -> Vec<Dir> {
-    // let x = db::init;
-
-    let mut results = Vec::new();
-
-    for line in contents.lines() {
-        let dir = Dir::parse_z(String::from(line));
-
-        if dir.path.contains(query) {
-            if valid_file(&dir.path) {
-                results.push(dir);
-            }
-        }
-    }
-
-    // results.sort_by_key(|x| x.rank as u32);
-    results.sort_by_key(|x| x.timestamp);
+    // results.sort_by_key(|x| x.timestamp);
     results
 }

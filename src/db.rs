@@ -20,9 +20,7 @@ pub struct DB {
 
 pub fn init() -> tantivy::Result<DB> {
     let path = Path::new("./db/");
-    // let index_path = TempDir::new("portal_tmp_dir")?;
     let index_path = MmapDirectory::open(path).unwrap();
-    // let index_path = ManagedDirectory::wrap(path);
 
     let mut schema_builder = Schema::builder();
 
@@ -37,18 +35,6 @@ pub fn init() -> tantivy::Result<DB> {
     let index = Index::open_or_create(index_path, schema.clone())?;
 
     Ok(DB { schema, index })
-}
-
-pub fn seed() -> tantivy::Result<Vec<Dir>> {
-    // println!("DB SEED");
-
-    let entries = vec![
-        Dir::new("/Users/dmix/dev/_rust/portal", 1557849352),
-        Dir::new("/Users/dmix/dev/_elixir/issues", 1561657040),
-        Dir::new("/Users/dmix/dev/_nim/karax/examples", 1549258325),
-    ];
-
-    Ok(entries)
 }
 
 pub fn add_entries(db: &DB, entries: Vec<Dir>) {
@@ -69,7 +55,7 @@ pub fn add_entries(db: &DB, entries: Vec<Dir>) {
     index_writer.commit().expect("Error adding entries db!");
 }
 
-pub fn parseDoc(db: &DB, doc: &Document) -> Dir {
+pub fn parse_doc(db: &DB, doc: &Document) -> Dir {
     let mut field_map = BTreeMap::new();
 
     for (field, field_values) in doc.get_sorted_field_values() {
@@ -89,8 +75,6 @@ pub fn parseDoc(db: &DB, doc: &Document) -> Dir {
 }
 
 pub fn query(db: &DB, query_term: &str) -> Vec<Dir> {
-    // println!("DB SEARCH: {}", &query_term);
-
     let path = db.schema.get_field("path").unwrap();
     // let timestamp = db.schema.get_field("timestamp").unwrap();
 
@@ -106,7 +90,7 @@ pub fn query(db: &DB, query_term: &str) -> Vec<Dir> {
     let query = query_parser.parse_query(&query_term).unwrap();
 
     let top_docs = searcher
-        .search(&query, &TopDocs::with_limit(50))
+        .search(&query, &TopDocs::with_limit(200))
         .expect("could not parse query");
 
     // println!("DB FOUND {} RESULTS", top_docs.len());
@@ -114,9 +98,22 @@ pub fn query(db: &DB, query_term: &str) -> Vec<Dir> {
     let mut results = Vec::new();
     for (_d, doc_address) in top_docs {
         let doc = searcher.doc(doc_address).unwrap();
-        let entry = parseDoc(&db, &doc);
+        let entry = parse_doc(&db, &doc);
         results.push(entry);
     }
 
+    results.sort_by_key(|x| x.timestamp);
     results
 }
+
+// pub fn seed() -> tantivy::Result<Vec<Dir>> {
+//     // println!("DB SEED");
+//
+//     let entries = vec![
+//         Dir::new("/Users/dmix/dev/_rust/portal", 1557849352),
+//         Dir::new("/Users/dmix/dev/_elixir/issues", 1561657040),
+//         Dir::new("/Users/dmix/dev/_nim/karax/examples", 1549258325),
+//     ];
+//
+//     Ok(entries)
+// }
