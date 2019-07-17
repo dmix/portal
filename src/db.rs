@@ -10,6 +10,7 @@ use tantivy::collector::TopDocs;
 use tantivy::directory::MmapDirectory;
 use tantivy::query::QueryParser;
 use tantivy::schema::*;
+use tantivy::tokenizer::NgramTokenizer;
 use tantivy::{Index, ReloadPolicy};
 use tempdir::TempDir;
 
@@ -19,20 +20,30 @@ pub struct DB {
 }
 
 pub fn init() -> tantivy::Result<DB> {
-    let path = Path::new("./db/");
+    let path = Path::new("/usr/local/lib/portal/db/");
     let index_path = MmapDirectory::open(path).unwrap();
 
     let mut schema_builder = Schema::builder();
 
+    let text_field_indexing = TextFieldIndexing::default()
+        .set_tokenizer("ngram3")
+        .set_index_option(IndexRecordOption::WithFreqsAndPositions);
+    let text_options = TextOptions::default()
+        .set_indexing_options(text_field_indexing)
+        .set_stored();
     let timestamp_options = IntOptions::default()
         .set_stored()
         .set_fast(Cardinality::SingleValue);
-    schema_builder.add_text_field("path", TEXT | STORED);
+    schema_builder.add_text_field("path", text_options);
     // schema_builder.add_u64_field("count", FAST);
     schema_builder.add_u64_field("timestamp", timestamp_options);
 
     let schema = schema_builder.build();
     let index = Index::open_or_create(index_path, schema.clone())?;
+
+    index
+        .tokenizers()
+        .register("ngram3", NgramTokenizer::new(3, 3, false));
 
     Ok(DB { schema, index })
 }

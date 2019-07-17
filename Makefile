@@ -15,8 +15,13 @@ test:
 	@echo 'Testing'
 
 install:
-	@cargo run test
+	@mkdir -p /usr/local/lib/portal/
+	@mkdir -p /usr/local/lib/portal/db/
+	@cargo build
 	@cp -rf ./target/debug/portal /usr/local/bin/portal
+
+reset: 
+	@rm -rf /usr/local/lib/portal/db/*
 
 # -- Helpers
 
