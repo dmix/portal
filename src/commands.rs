@@ -10,10 +10,11 @@
 //! See the `impl Configurable` below for how to specify the path to the
 //! application's configuration file.
 
+mod db;
 mod jump;
 mod version;
 
-use self::{jump::JumpCommand, version::VersionCommand};
+use self::{db::DBCommand, jump::JumpCommand, version::VersionCommand};
 use crate::config::PortalConfig;
 use abscissa_core::{
     config::Override, Command, Configurable, FrameworkError, Help, Options, Runnable,
@@ -21,7 +22,7 @@ use abscissa_core::{
 use std::path::PathBuf;
 
 /// Portal Configuration Filename
-pub const CONFIG_FILE: &str = "portal.toml";
+pub const CONFIG_FILE: &str = "/usr/local/var/portal/portal.toml";
 
 /// Portal Subcommands
 #[derive(Command, Debug, Options, Runnable)]
@@ -33,6 +34,10 @@ pub enum PortalCommand {
     /// The `jump` subcommand
     #[options(help = "jump to a directory")]
     Jump(JumpCommand),
+
+    /// The `db` subcommand
+    #[options(help = "load z, zsh_history, and bash_history into database")]
+    Db(DBCommand),
 
     /// The `version` subcommand
     #[options(help = "display version information")]

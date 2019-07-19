@@ -3,7 +3,6 @@
 // -----------------------------------------------------------------------
 
 extern crate tantivy;
-// use tantivy;
 use tantivy::collector::TopDocs;
 use tantivy::directory::MmapDirectory;
 use tantivy::query::QueryParser;
@@ -20,8 +19,12 @@ pub struct Database {
     index: Index,
 }
 
-pub fn init() -> tantivy::Result<Database> {
-    let path = Path::new("/usr/local/lib/portal/database/");
+pub fn init(db_path: &str) -> Result<Database, String> {
+    if !Path::new(&db_path).exists() {
+        return Err(format!("Directory does not exist {}", &db_path));
+    }
+
+    let path = Path::new(db_path);
     let index_path = MmapDirectory::open(path).unwrap();
 
     let mut schema_builder = Schema::builder();
@@ -36,11 +39,11 @@ pub fn init() -> tantivy::Result<Database> {
         .set_stored()
         .set_fast(Cardinality::SingleValue);
     schema_builder.add_text_field("path", text_options);
-    // schema_builder.add_u64_field("count", FAST);
     schema_builder.add_u64_field("timestamp", timestamp_options);
+    // schema_builder.add_u64_field("count", FAST);
 
     let schema = schema_builder.build();
-    let index = Index::open_or_create(index_path, schema.clone())?;
+    let index = Index::open_or_create(index_path, schema.clone()).unwrap();
 
     index
         .tokenizers()

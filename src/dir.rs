@@ -1,3 +1,6 @@
+use crate::database;
+use std::error::Error;
+use std::fs;
 use std::path::Path;
 use std::str::FromStr;
 
@@ -7,7 +10,7 @@ static HOME: &'static str = "/Users/dmix/";
 pub struct Dir {
     pub path: String,
     pub timestamp: u32,
-    rank: f32,
+    pub rank: f32,
 }
 
 impl Dir {
@@ -51,7 +54,13 @@ fn valid_file(path: &str) -> bool {
     return false;
 }
 
-pub fn parse<'a>(contents: &'a String) -> Vec<Dir> {
+pub fn open_z(filename: &String) -> Result<(String), Box<dyn Error>> {
+    let contents = fs::read_to_string(&filename)?;
+
+    Ok(contents)
+}
+
+pub fn parse_z<'a>(contents: &'a String) -> Vec<Dir> {
     // let x = db::init;
 
     let mut results = Vec::new();
@@ -67,3 +76,17 @@ pub fn parse<'a>(contents: &'a String) -> Vec<Dir> {
     // results.sort_by_key(|x| x.timestamp);
     results
 }
+
+pub fn load_z(database: &database::Database, filename: &String) {
+    match open_z(filename) {
+        Ok(contents) => {
+            let entries = parse_z(&contents);
+            println!("Loading {} entries into database", entries.len());
+            database::add_entries(&database, entries);
+        }
+        Err(e) => println!("Error: {}", e),
+    }
+}
+
+// iconv -f UTF-8 -t UTF-8//IGNORE .bash_history > .bash_history-utf8
+// iconv -f UTF-8 -t UTF-8//IGNORE .zsh_history > .zsh_history-utf8

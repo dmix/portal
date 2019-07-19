@@ -10,14 +10,14 @@ CONFIG_PATH=/usr/local/var
 # -- Main
 
 dev: 
-	@cargo watch -x 'run -- dev'
+	@cargo watch -x 'run jump portal'
 
 test: 
 	@echo 'Testing'
 
 install:
-	@mkdir -p $(CONFIG_PATH)}/portal/
-	@mkdir -p $(CONFIG_PATH)}/portal/db/
+	@mkdir -p $(CONFIG_PATH)/portal/
+	@mkdir -p $(CONFIG_PATH)/portal/db/
 	@cargo build
 	@cp -rf ./portal.toml $(CONFIG_PATH)/portal/portal.toml
 	@cp -rf ./target/debug/portal /usr/local/bin/portal
