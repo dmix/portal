@@ -1,11 +1,20 @@
 [package]
 name = "portal"
-version = "0.1.0"
 authors = ["Dan McGrady <daniel.p.mcgrady@gmail.com>"]
+version = "0.1.0"
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+failure = "0.1"
+gumdrop = "0.6"
+lazy_static = "1"
+serde = { version = "1", features = ["serde_derive"] }
 tantivy = "0.10.0"
 tempdir = "0.3.7"
+
+[dependencies.abscissa_core]
+version = "0.2.0"
+
+[dev-dependencies.abscissa_core]
+version = "0.2.0"
+features = ["testing"]

@@ -1,0 +1,12 @@
+# Default configs
+# Stored "/usr/local/var/portal/portal.toml"
+# config = "/usr/local/var/portal/portal.toml"
+
+[jump]
+query = "dev"
+zsh_history = "/Users/dmix/.zsh_history"
+bash_history = "/Users/dmix/.bash_history"
+z = "/Users/dmix/.z"
+
+[database]
+path = "/usr/local/var/portal/db/"

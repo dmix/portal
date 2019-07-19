@@ -5,6 +5,7 @@
 # -- Options
 
 HOME=/Users/dmix
+CONFIG_PATH=/usr/local/var
 
 # -- Main
 
@@ -15,9 +16,10 @@ test:
 	@echo 'Testing'
 
 install:
-	@mkdir -p /usr/local/lib/portal/
-	@mkdir -p /usr/local/lib/portal/db/
+	@mkdir -p $(CONFIG_PATH)}/portal/
+	@mkdir -p $(CONFIG_PATH)}/portal/db/
 	@cargo build
+	@cp -rf ./portal.toml $(CONFIG_PATH)/portal/portal.toml
 	@cp -rf ./target/debug/portal /usr/local/bin/portal
 
 reset: 
