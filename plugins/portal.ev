@@ -1,0 +1,8 @@
+fn p [dir]{
+  result=(portal jump $dir)
+  if (has-prefix "$result" "Error") {
+    put $result
+  } else  {
+    cd $result
+  }
+}
