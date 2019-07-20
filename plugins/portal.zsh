@@ -7,3 +7,9 @@ function pp() {
       cd $result
     fi
 }
+
+# Hook cd command to run tracker every change of dir
+autoload -U add-zsh-hook
+add-zsh-hook -Uz chpwd (){ 
+    portal db track $pwd
+}

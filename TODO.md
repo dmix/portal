@@ -3,19 +3,18 @@ Portal Todo
 
 [x] Basic directory jumping
 [x] Seed database using z's `~/z`
-[ ] Test suite
-[ ] Add tantivy to support better text searching https://github.com/tantivy-search/tantivy
-[ ] cd and directory change tracking via shell
+[x] Add abscissa framework
+[x] Add tantivy to support better text searching https://github.com/tantivy-search/tantivy
+[x] Help dialog (-h, --help)
+[x] ZSH plugin
+[x] Elvish plugin
+[x] Makefile
+[ ] Add DB to application state
+[ ] command to track cd and directory change + shell integration
 [ ] Seed database using `.bash_history` and `.zsh_history`
-[ ] Help dialog (-h, --help)
 [ ] Support multiple keywords
 [ ] Add tagging
-[ ] Makefile
 [ ] Support .gitignore
 [ ] Bash plugin
-[ ] ZSH plugin
-[ ] Elvish plugin
 [ ] Homebrew package
-[ ] Archlinux package
-[ ] Debian package
-[ ] Fedora package
+[ ] Linux package (OpenSuse tool)

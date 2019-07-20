@@ -24,9 +24,6 @@ impl Runnable for JumpCommand {
 }
 
 impl config::Override<PortalConfig> for JumpCommand {
-    // Process the given command line options, overriding settings from
-    // a configuration file using explicit flags taken from command-line
-    // arguments.
     fn override_config(&self, mut config: PortalConfig) -> Result<PortalConfig, FrameworkError> {
         if !self.query.is_empty() {
             config.jump.query = self.query.join(" ");

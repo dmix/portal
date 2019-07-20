@@ -4,6 +4,7 @@ use std::fs;
 use std::path::Path;
 use std::str::FromStr;
 
+use std::time::{SystemTime, UNIX_EPOCH};
 static HOME: &'static str = "/Users/dmix/";
 
 #[derive(Debug)]
@@ -90,3 +91,14 @@ pub fn load_z(database: &database::Database, filename: &String) {
 
 // iconv -f UTF-8 -t UTF-8//IGNORE .bash_history > .bash_history-utf8
 // iconv -f UTF-8 -t UTF-8//IGNORE .zsh_history > .zsh_history-utf8
+
+pub fn track(database: &database::Database, dir_path: &String) {
+    match Path::new(&dir_path).exists() {
+        true => {
+            let time = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+            let entries = vec![Dir::new(&dir_path, time.as_secs() as u32)];
+            database::add_entries(&database, entries);
+        }
+        false => println!("Directory path doesn't exist!: {}", &dir_path),
+    }
+}
