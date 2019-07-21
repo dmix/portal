@@ -6,3 +6,7 @@ fn p [dir]{
     cd $result
   }
 }
+
+after-chdir = [[_]{ 
+  portal db track $pwd
+}]
