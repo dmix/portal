@@ -5,25 +5,33 @@
 # -- Options
 
 HOME=/Users/dmix
-CONFIG_PATH=/usr/local/var
+CONFIG_PATH=/usr/local/var/portal
+DATA_PATH=/usr/local/lib/portal
 
 # -- Main
 
-dev: 
+dev: initialize
 	@cargo watch -x 'run jump portal'
 
 test: 
 	@echo 'Testing'
 
-install:
-	@mkdir -p $(CONFIG_PATH)/portal/
-	@mkdir -p $(CONFIG_PATH)/portal/db/
+initialize: 
+	@mkdir -p $(DATA_PATH)
+	@touch $(DATA_PATH)/portal.log
+	@mkdir -p $(CONFIG_PATH)
+	@mkdir -p $(CONFIG_PATH)/db/
+
+install: initialize
 	@cargo build
-	@cp -rf ./portal.toml $(CONFIG_PATH)/portal/portal.toml
+	@cp -rf ./portal.toml $(CONFIG_PATH)/portal.toml
 	@cp -rf ./target/debug/portal /usr/local/bin/portal
+	@cp -rf ./plugins/portal.plugin.* $(CONFIG_PATH) 
 
 reset: 
-	@rm -rf /usr/local/lib/portal/db/*
+	@rm -rf $(DATA_PATH)/portal.log
+	@rm -rf $(DATA_PATH)/db/*
+	@touch $(DATA_PATH)/portal.log
 
 # -- Helpers
 
