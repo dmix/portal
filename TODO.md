@@ -9,12 +9,18 @@ Portal Todo
 [x] ZSH plugin
 [x] Elvish plugin
 [x] Makefile
-[ ] Add DB to application state
-[ ] command to track cd and directory change + shell integration
-[ ] Seed database using `.bash_history` and `.zsh_history`
-[ ] Support multiple keywords
+[x] command to track cd and directory change + shell integration
+[ ] Add DB to application state, always initalize immediately
 [ ] Add tagging
+[ ] Add search command w/ fzf integration to select dir
+[ ] Add recent 10 command  w/ fzf ^
+[ ] Support multiple keywords ("jump dev portal" => ~/dev/_rust/portal)
+[ ] Support zplug  https://github.com/zplug/zplug
+[ ] update ZSH / Elvish plugins to run command async https://github.com/mafredri/zsh-async
+[ ] Seed database using .zsh_history`
 [ ] Support .gitignore
-[ ] Bash plugin
 [ ] Homebrew package
 [ ] Linux package (OpenSuse tool)
+[ ] Bash plugin
+[ ] Seed database using .bash_history`
+[ ] Vim/emacs plugin to change current directory + NERDTree

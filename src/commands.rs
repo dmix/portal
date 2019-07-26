@@ -9,6 +9,7 @@
 //!
 //! See the `impl Configurable` below for how to specify the path to the
 //! application's configuration file.
+//!
 
 mod db;
 mod jump;
@@ -24,7 +25,6 @@ use std::path::PathBuf;
 /// Portal Configuration Filename
 pub const CONFIG_FILE: &str = "/usr/local/var/portal/portal.toml";
 
-/// Portal Subcommands
 #[derive(Command, Debug, Options, Runnable)]
 pub enum PortalCommand {
     /// The `help` subcommand

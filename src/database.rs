@@ -14,6 +14,7 @@ use crate::dir::Dir;
 use std::collections::BTreeMap;
 use std::path::Path;
 
+// #[derive(Debug)]
 pub struct Database {
     schema: Schema,
     index: Index,

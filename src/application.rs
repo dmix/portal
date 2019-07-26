@@ -1,5 +1,6 @@
 //! Portal Abscissa Application
 
+// use crate::database::Database;
 use crate::{commands::PortalCommand, config::PortalConfig};
 use abscissa_core::{
     application, config, logging, Application, EntryPoint, FrameworkError, StandardPaths,
@@ -38,6 +39,8 @@ pub struct PortalApplication {
 
     /// Application state.
     state: application::State<Self>,
+    // // Application database
+    // database: Option<Database>,
 }
 
 /// Initialize a new application instance.
@@ -49,6 +52,7 @@ impl Default for PortalApplication {
         Self {
             config: None,
             state: application::State::default(),
+            // database: None,
         }
     }
 }
