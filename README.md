@@ -3,17 +3,16 @@
 
 A fast directory jumper using short text queries. A rust rewrite of z (https://github.com/rupa/z) with supports ZSH, Bash, and Elvish.
 
-*WARNING* Currently under heavy development. Basic tracking on every `cd` and jumping to the directory is working, with basic ZSH and Elvish plugins. More work needs to be done for tagging directories, searching directory history with fzf, Bash support, and more See [TODO](https://github.com/dmix/portal/blob/master/TODO.md) for latest progress
+**WARNING** Currently under heavy development. WHAT WORKS: Basic tracking on every `cd` and jumping to the directory is working, with basic ZSH and Elvish plugins (see below). WHAT'S NEXT: More work needs to be done for tagging directories, searching directory history with fzf, Bash support, and more. See [TODO](https://github.com/dmix/portal/blob/master/TODO.md) for latest progress
 
 ## Features
+--- 
 
 - Jump to a directory you most recently visited containing a keyword
 - Ranks your history (ie, .zsh_history) of all the directories by # of visits and recency
 - Stored using [tantivy](https://github.com/tantivy-search/tantivy) allowing superfast full-text queries
 - List recent directories or search entire history, with fzf integration to filter/select one manually (TODO)
 - Manually tag directories (TODO)
-
-## Usage
 
 ### Supported shells
 
@@ -37,7 +36,9 @@ This will install `portal` to your /usr/local/bin
 
 ### Shell Integration
 
-ZSH:
+--- 
+
+#### ZSH
 
 **ZSH Install**
 
@@ -69,7 +70,7 @@ Which is a shortcut for:
 
     portal jump <directory name>
 
-Elvish:
+#### Elvish:
 
 **Elvish Install**
 
@@ -95,6 +96,7 @@ Bash:
 Plugin coming soon. The ZSH plugin could easily be ported.
 
 ### Usage
+--- 
 
 Jump to a directory (keyword matches)
 
@@ -122,6 +124,7 @@ Manually list and select directory
     > .. lists directories, use j/k or arrow keys to navigate
 
 ## About
+--- 
 
 ### Prior Art
 
