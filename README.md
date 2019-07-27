@@ -36,17 +36,57 @@ Mac OS:
 
 ### Shell Integration
 
-ZSH and Bash, add to `.bashrc` or `.zshrc`, you can use any shortcut name, I use `p`:
+ZSH:
 
-    function pp() {
-        cd `portal $1`
-    }
+**Install**
+
+- Using [zplug](https://github.com/zplug/zplug):
+
+    zplug "dmix/portal", use: "portal.pluginz.zsh"
+
+- Using [antigen](https://github.com/zsh-users/antigen)
+
+    antigen bundle zsh-users/zsh-syntax-highlighting
+
+- Using [zgen](https://github.com/tarjoilija/zgen)
+
+    zgen load dmix/portal
+
+- Manually
+
+    Download `plugins/portal.plugin.zsh`
+    source portal.plugin.zsh
+
+**Usage**
+
+Normally I use `p` as the command but that is used by zsh for `print` so the default is z:
+
+    z <directory name>
+
+    portal jump <directory name>
+
+    For ex:
+
+    $ cd ~/dev/_rst/portal
+    (later)
+    $ z por
+    > cd /Users/dmix/dev/_rust/portal
+
 
 Elvish:
 
-    fn p [dir]{
-      cd (portal $dir)
-    }
+Install using [epm](https://elv.sh/ref/epm.html)
+
+    $epm:install github.com/dmix/portal
+
+Add to your ~/.elvish/rc.elv
+
+    use epm
+    use "github.com/dmix/portal/plugins/portal.plugin"
+
+Bash:
+
+Plugin coming soon. The ZSH plugin could easily be ported.
 
 ### Usage
 
