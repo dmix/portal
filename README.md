@@ -5,9 +5,9 @@ A fast directory jumper using short text queries. A rust rewrite of z (https://g
 
 ---
 
-**---WARNING---** Currently under heavy development. 
+**---WARNING---** Currently under heavy development.
 
-WHAT WORKS: Basic tracking on every `cd` and jumping to the directory is working, with basic ZSH and Elvish plugins (see below). 
+WHAT WORKS: Basic tracking on every `cd` and jumping to the directory is working, with basic ZSH and Elvish plugins (see below).
 
 WHAT'S NEXT: More work needs to be done for tagging directories, searching directory history with fzf, Bash support, and more. See [TODO](https://github.com/dmix/portal/blob/master/TODO.md) for latest progress
 
@@ -36,7 +36,7 @@ Mac OS:
     git clone https://github.com/dmix/portal/
     cd portal
     make install
-    
+
 This will install `portal` to your /usr/local/bin
 
 ## Shell Integration
@@ -85,12 +85,13 @@ Install using [epm](https://elv.sh/ref/epm.html)
 Add to your ~/.elvish/rc.elv
 
     use epm
-    use "github.com/dmix/portal/plugins/portal.plugin"
+    use "github.com/dmix/portal/plugins/portal"
+    fn p [@_args]{ portal:p $@_args }
 
 **Elvish Usage**
 
     p <directory name>
-    
+
 Which is a shortcut for:
 
     portal jump <directory name>
