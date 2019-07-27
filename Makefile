@@ -8,7 +8,6 @@ HOME=/Users/dmix
 CONFIG_PATH=/usr/local/var/portal
 DATA_PATH=/usr/local/lib/portal
 ELVISH_DIR=~/.elvish/lib/portal
-ZSH_DIR=~/zsh/plugins
 
 # -- Main
 
@@ -29,8 +28,6 @@ install: initialize
 	@cargo build
 	@cp -rf ./portal.toml $(CONFIG_PATH)/portal.toml
 	@cp -rf ./target/debug/portal /usr/local/bin/portal
-	@cp -f ./plugins/portal.plugin.zsh $(ZSH_DIR)/portal.plugin.zsh
-	@cp -f ./plugins/portal.plugin.elv $(ELVISH_DIR)/portal.plugin.elv
 
 reset: 
 	@rm -rf $(DATA_PATH)/portal.log
