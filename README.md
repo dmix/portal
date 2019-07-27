@@ -3,17 +3,15 @@ portal
 
 A fast directory jumper using short text queries. A rust rewrite of z (https://github.com/rupa/z) with supports ZSH, Bash, and Elvish.
 
-*WARNING* Currently under heavy development and only works by importing an existing `.z` database. Most of below is the plan not the current state.
-
-See [TODO](https://github.com/dmix/portal/blob/master/TODO.md) for latest progress
+*WARNING* Currently under heavy development. Basic tracking on every `cd` and jumping to the directory is working, with basic ZSH and Elvish plugins. More work needs to be done for tagging directories, searching directory history with fzf, Bash support, and more See [TODO](https://github.com/dmix/portal/blob/master/TODO.md) for latest progress
 
 ## Features
 
 - Jump to a directory you most recently visited containing a keyword
 - Ranks your history (ie, .zsh_history) of all the directories by # of visits and recency
-- Alternatively list recent directories and select one manually
 - Stored using [tantivy](https://github.com/tantivy-search/tantivy) allowing superfast full-text queries
-- Manually tag directories
+- List recent directories or search entire history, with fzf integration to filter/select one manually (TODO)
+- Manually tag directories (TODO)
 
 ## Usage
 
@@ -38,42 +36,39 @@ Mac OS:
 
 ZSH:
 
-**Install**
+**ZSH Install**
 
-- Using [zplug](https://github.com/zplug/zplug):
+Using [zplug](https://github.com/zplug/zplug):
 
     zplug "dmix/portal", use: "portal.pluginz.zsh"
 
-- Using [antigen](https://github.com/zsh-users/antigen)
+Using [antigen](https://github.com/zsh-users/antigen)
 
     antigen bundle zsh-users/zsh-syntax-highlighting
 
-- Using [zgen](https://github.com/tarjoilija/zgen)
+Using [zgen](https://github.com/tarjoilija/zgen)
 
     zgen load dmix/portal
 
-- Manually
+Manually
 
-    Download `plugins/portal.plugin.zsh`
+Download `plugins/portal.plugin.zsh` and add to `.zshrc`
+
     source portal.plugin.zsh
 
-**Usage**
+**ZSH Usage**
 
 Normally I use `p` as the command but that is used by zsh for `print` so the default is z:
 
     z <directory name>
 
+Which is a shortcut for:
+
     portal jump <directory name>
 
-    For ex:
-
-    $ cd ~/dev/_rst/portal
-    (later)
-    $ z por
-    > cd /Users/dmix/dev/_rust/portal
-
-
 Elvish:
+
+**Elvish Install**
 
 Install using [epm](https://elv.sh/ref/epm.html)
 
@@ -83,6 +78,14 @@ Add to your ~/.elvish/rc.elv
 
     use epm
     use "github.com/dmix/portal/plugins/portal.plugin"
+
+**Elvish Usage**
+
+    p <directory name>
+    
+Which is a shortcut for:
+
+    portal jump <directory name>
 
 Bash:
 
