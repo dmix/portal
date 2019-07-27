@@ -1,4 +1,4 @@
-portal
+🖲️ portal
 ---
 
 A fast directory jumper using short text queries. A rust rewrite of z (https://github.com/rupa/z) with supports ZSH, Bash, and Elvish.
