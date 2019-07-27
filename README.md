@@ -29,8 +29,11 @@ This is a work in progress. Homebrew, Archlinux, Debian, and Fedora packages com
 
 Mac OS:
 
-    cargo build
-    cp target/debug/portal /usr/local/bin/portal
+    git clone https://github.com/dmix/portal/
+    cd portal
+    make install
+    
+This will install `portal` to your /usr/local/bin
 
 ### Shell Integration
 
